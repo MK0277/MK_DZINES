@@ -1073,4 +1073,3 @@ input, select, textarea { font-family: inherit; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 /* Responsive rules and extra animations now live in responsive.css */
- 
