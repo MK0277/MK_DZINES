@@ -542,4 +542,3 @@ document.addEventListener('DOMContentLoaded', () => {
   revealTargets.forEach(el => io.observe(el));
 
 });
- 
