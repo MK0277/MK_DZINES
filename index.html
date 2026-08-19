@@ -188,64 +188,394 @@
   </div>
 </section>
 
-<!-- ===== PACKAGES ===== -->
+
+<!-- ===== BRANDING PACKAGES SLIDER ===== -->
 <section class="section" id="packages">
+
   <div class="section-head">
-    <p class="eyebrow"><span class="eyebrow-dot"></span>Investment</p>
+    <p class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      Investment
+    </p>
     <h2 class="section-title">Branding Packages</h2>
+    <p class="section-subtitle">
+      Choose the right branding solution for your business.
+    </p>
   </div>
 
-  <div class="packages-grid">
-    <div class="package-card">
-      <h3>Starter</h3>
-      <p class="package-price"><span>₹4,999</span> starting from</p>
-      <p class="package-desc">For new businesses that need a professional identity.</p>
-      <ul>
-        <li>Logo Design</li>
-        <li>Logo Variations</li>
-        <li>Color Palette</li>
-        <li>Typography</li>
-        <li>Basic Brand Assets</li>
-      </ul>
-      <button type="button" class="btn btn-outline-gold pkg-btn" data-pkg="starter">Choose Starter</button>
+  <div class="packages-slider-wrapper">
+
+    <button class="package-arrow package-prev" type="button" aria-label="Previous package">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <div class="packages-slider" id="packagesSlider">
+
+      <!-- STARTER -->
+      <div class="package-slide">
+        <div class="package-card">
+
+          <span class="package-label">For New Brands</span>
+
+          <h3>Starter</h3>
+
+          <p class="package-price">
+            <span>₹4,999</span>
+            <small>starting from</small>
+          </p>
+
+          <p class="package-desc">
+            For new businesses that need a professional visual identity.
+          </p>
+
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Logo Design</li>
+            <li><i class="fa-solid fa-check"></i> Logo Variations</li>
+            <li><i class="fa-solid fa-check"></i> Color Palette</li>
+            <li><i class="fa-solid fa-check"></i> Typography</li>
+            <li><i class="fa-solid fa-check"></i> Basic Brand Assets</li>
+            <li><i class="fa-solid fa-check"></i> Final Export Files</li>
+          </ul>
+
+          <button
+            type="button"
+            class="btn btn-outline-gold pkg-btn"
+            data-pkg="starter">
+            Choose Starter
+          </button>
+
+        </div>
+      </div>
+
+
+      <!-- PROFESSIONAL -->
+      <div class="package-slide">
+        <div class="package-card package-featured">
+
+          <span class="package-badge">Most Popular</span>
+          <span class="package-label">For Growing Businesses</span>
+
+          <h3>Professional</h3>
+
+          <p class="package-price">
+            <span>₹9,999</span>
+            <small>starting from</small>
+          </p>
+
+          <p class="package-desc">
+            For businesses ready to build a complete and consistent visual identity.
+          </p>
+
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Everything in Starter</li>
+            <li><i class="fa-solid fa-check"></i> Brand Guidelines</li>
+            <li><i class="fa-solid fa-check"></i> Business Card</li>
+            <li><i class="fa-solid fa-check"></i> Social Media Templates</li>
+            <li><i class="fa-solid fa-check"></i> Profile Branding</li>
+            <li><i class="fa-solid fa-check"></i> Packaging / Marketing Asset</li>
+            <li><i class="fa-solid fa-check"></i> Brand Mockups</li>
+            <li><i class="fa-solid fa-check"></i> Brand Presentation</li>
+          </ul>
+
+          <button
+            type="button"
+            class="btn btn-gold pkg-btn"
+            data-pkg="professional">
+            Choose Professional
+          </button>
+
+        </div>
+      </div>
+
+
+      <!-- PREMIUM -->
+      <div class="package-slide">
+        <div class="package-card">
+
+          <span class="package-label">Complete Brand Solution</span>
+
+          <h3>Premium</h3>
+
+          <p class="package-price">
+            <span>₹17,999</span>
+            <small>starting from</small>
+          </p>
+
+          <p class="package-desc">
+            For businesses that want complete brand development and a premium presence.
+          </p>
+
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Complete Brand Identity</li>
+            <li><i class="fa-solid fa-check"></i> Logo System</li>
+            <li><i class="fa-solid fa-check"></i> Brand Guidelines</li>
+            <li><i class="fa-solid fa-check"></i> Social Media Branding</li>
+            <li><i class="fa-solid fa-check"></i> Packaging</li>
+            <li><i class="fa-solid fa-check"></i> Marketing Materials</li>
+            <li><i class="fa-solid fa-check"></i> Multiple Mockups</li>
+            <li><i class="fa-solid fa-check"></i> Brand Presentation</li>
+          </ul>
+
+          <button
+            type="button"
+            class="btn btn-outline-gold pkg-btn"
+            data-pkg="premium">
+            Build My Brand
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+        </div>
+      </div>
+
     </div>
 
-    <div class="package-card package-featured">
-      <span class="package-badge">Most Popular</span>
-      <h3>Professional</h3>
-      <p class="package-price"><span>₹9,999</span> starting from</p>
-      <p class="package-desc">For businesses ready to build a complete visual identity.</p>
-      <ul>
-        <li>Everything in Starter</li>
-        <li>Brand Guidelines</li>
-        <li>Business Card</li>
-        <li>Social Media Templates</li>
-        <li>Profile Branding</li>
-        <li>Packaging / Marketing Asset</li>
-        <li>Brand Mockups</li>
-      </ul>
-      <button type="button" class="btn btn-gold pkg-btn" data-pkg="professional">Choose Professional</button>
-    </div>
+    <button class="package-arrow package-next" type="button" aria-label="Next package">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
 
-    <div class="package-card">
-      <h3>Premium</h3>
-      <p class="package-price"><span>₹17,999</span> starting from</p>
-      <p class="package-desc">For businesses that want complete brand development.</p>
-      <ul>
-        <li>Complete Brand Identity</li>
-        <li>Logo System</li>
-        <li>Brand Guidelines</li>
-        <li>Social Media Branding</li>
-        <li>Packaging</li>
-        <li>Marketing Materials</li>
-        <li>Multiple Mockups + Presentation</li>
-      </ul>
-      <button type="button" class="btn btn-outline-gold pkg-btn" data-pkg="premium">Build My Brand <i class="fa-solid fa-arrow-right"></i></button>
-    </div>
   </div>
 
-  <p class="custom-quote">Need something custom? <a href="#" class="js-open-project" data-pkg="custom">Request a Custom Quote →</a></p>
+  <!-- Slider dots -->
+  <div class="package-dots" id="packageDots">
+    <button class="active" data-slide="0"></button>
+    <button data-slide="1"></button>
+    <button data-slide="2"></button>
+  </div>
+
+  <p class="custom-quote">
+    Need something custom?
+    <a href="#" class="js-open-project" data-pkg="custom">
+      Request a Custom Quote →
+    </a>
+  </p>
+
 </section>
+
+<style>
+/* ===== PACKAGES SLIDER ===== */
+
+.packages-slider-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.packages-slider {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding: 15px 5px 25px;
+}
+
+.packages-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.package-slide {
+  flex: 0 0 calc((100% - 48px) / 3);
+  scroll-snap-align: center;
+}
+
+.package-arrow {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(15, 15, 15, 0.9);
+  color: #d4af37;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+  z-index: 5;
+}
+
+.package-arrow:hover {
+  transform: scale(1.08);
+  background: #d4af37;
+  color: #111;
+}
+
+.package-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.package-card ul {
+  flex: 1;
+}
+
+.package-card .pkg-btn {
+  margin-top: auto;
+}
+
+.package-label {
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.package-price small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.6;
+  margin-top: 3px;
+}
+
+.package-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0 25px;
+}
+
+.package-dots button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #777;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.package-dots button.active {
+  width: 25px;
+  border-radius: 10px;
+  background: #d4af37;
+}
+
+
+/* ===== TABLET ===== */
+
+@media (max-width: 1000px) {
+
+  .package-slide {
+    flex: 0 0 calc((100% - 24px) / 2);
+  }
+
+}
+
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 650px) {
+
+  .packages-slider-wrapper {
+    gap: 8px;
+  }
+
+  .packages-slider {
+    gap: 15px;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+
+  .package-slide {
+    flex: 0 0 100%;
+  }
+
+  .package-arrow {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 12px;
+  }
+
+}</style>
+
+<script>
+const packagesSlider = document.getElementById("packagesSlider");
+const packageSlides = document.querySelectorAll(".package-slide");
+const prevPackage = document.querySelector(".package-prev");
+const nextPackage = document.querySelector(".package-next");
+const packageDots = document.querySelectorAll("#packageDots button");
+
+let currentPackage = 0;
+
+function getPackageWidth() {
+  const slide = packageSlides[0];
+
+  if (!slide) return 0;
+
+  const gap = parseFloat(
+    getComputedStyle(packagesSlider).gap
+  ) || 0;
+
+  return slide.offsetWidth + gap;
+}
+
+function goToPackage(index) {
+
+  if (index < 0) {
+    index = packageSlides.length - 1;
+  }
+
+  if (index >= packageSlides.length) {
+    index = 0;
+  }
+
+  currentPackage = index;
+
+  packagesSlider.scrollTo({
+    left: getPackageWidth() * currentPackage,
+    behavior: "smooth"
+  });
+
+  packageDots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === currentPackage);
+  });
+}
+
+prevPackage.addEventListener("click", () => {
+  goToPackage(currentPackage - 1);
+});
+
+nextPackage.addEventListener("click", () => {
+  goToPackage(currentPackage + 1);
+});
+
+packageDots.forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    goToPackage(index);
+  });
+});
+
+
+/* Update active dot when user swipes */
+packagesSlider.addEventListener("scroll", () => {
+
+  const width = getPackageWidth();
+
+  if (!width) return;
+
+  const index = Math.round(
+    packagesSlider.scrollLeft / width
+  );
+
+  if (index !== currentPackage) {
+
+    currentPackage = index;
+
+    packageDots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === currentPackage);
+    });
+
+  }
+
+});
+</script>
 
 <!-- ===== PROCESS ===== -->
 <section class="section section-dark" id="process">
