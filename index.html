@@ -27,6 +27,7 @@
       <a href="#home">Home</a>
       <a href="#services">Services</a>
       <a href="#work">Work</a>
+      <a href="gallery.html">Gallery</a>
       <a href="#packages">Packages</a>
       <a href="#process">Process</a>
       <a href="#about">About</a>
@@ -50,6 +51,7 @@
   <a href="#home">Home</a>
   <a href="#services">Services</a>
   <a href="#work">Work</a>
+  <a href="gallery.html">Gallery</a>
   <a href="#packages">Packages</a>
   <a href="#process">Process</a>
   <a href="#about">About</a>
@@ -195,6 +197,7 @@
   <div class="packages-grid">
     <div class="package-card">
       <h3>Starter</h3>
+      <p class="package-price"><span>₹4,999</span> starting from</p>
       <p class="package-desc">For new businesses that need a professional identity.</p>
       <ul>
         <li>Logo Design</li>
@@ -203,12 +206,13 @@
         <li>Typography</li>
         <li>Basic Brand Assets</li>
       </ul>
-      <a href="#contact" class="btn btn-outline-gold">Choose Starter</a>
+      <button type="button" class="btn btn-outline-gold pkg-btn" data-pkg="starter">Choose Starter</button>
     </div>
 
     <div class="package-card package-featured">
       <span class="package-badge">Most Popular</span>
       <h3>Professional</h3>
+      <p class="package-price"><span>₹9,999</span> starting from</p>
       <p class="package-desc">For businesses ready to build a complete visual identity.</p>
       <ul>
         <li>Everything in Starter</li>
@@ -219,11 +223,12 @@
         <li>Packaging / Marketing Asset</li>
         <li>Brand Mockups</li>
       </ul>
-      <a href="#contact" class="btn btn-gold">Choose Professional</a>
+      <button type="button" class="btn btn-gold pkg-btn" data-pkg="professional">Choose Professional</button>
     </div>
 
     <div class="package-card">
       <h3>Premium</h3>
+      <p class="package-price"><span>₹17,999</span> starting from</p>
       <p class="package-desc">For businesses that want complete brand development.</p>
       <ul>
         <li>Complete Brand Identity</li>
@@ -234,7 +239,7 @@
         <li>Marketing Materials</li>
         <li>Multiple Mockups + Presentation</li>
       </ul>
-      <a href="#contact" class="btn btn-outline-gold">Build My Brand <i class="fa-solid fa-arrow-right"></i></a>
+      <button type="button" class="btn btn-outline-gold pkg-btn" data-pkg="premium">Build My Brand <i class="fa-solid fa-arrow-right"></i></button>
     </div>
   </div>
 
@@ -428,4 +433,212 @@
     </div>
     <div class="faq-item">
       <button class="faq-q">Do you design Instagram profiles? <i class="fa-solid fa-plus"></i></button>
-      <di
+      <div class="faq-a"><p>Yes. This includes your profile picture, highlight covers, post templates and overall visual direction.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I request custom branding? <i class="fa-solid fa-plus"></i></button>
+      <div class="faq-a"><p>Yes — get in touch for a custom package built around your specific needs.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How do I start a project? <i class="fa-solid fa-plus"></i></button>
+      <div class="faq-a"><p>Click "Start a Project" and fill out the inquiry form below — MK Dzines will get back to you soon.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT / INQUIRY ===== -->
+<section class="section section-dark" id="contact">
+  <div class="section-head">
+    <p class="eyebrow"><span class="eyebrow-dot"></span>Get in Touch</p>
+    <h2 class="section-title">Have a Brand in Mind?</h2>
+    <p class="section-sub">Let's turn your idea into a visual identity people remember.</p>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <a href="https://instagram.com/mk__dzines" target="_blank" rel="noopener" class="contact-link"><i class="fa-brands fa-instagram"></i> @mk__dzines</a>
+      <a href="https://wa.me/0000000000?text=Hi%20MK%20Dzines%2C%20I%27m%20interested%20in%20your%20branding%20services." target="_blank" rel="noopener" class="contact-link"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+      <a href="mailto:hello@mkdzines.com" class="contact-link"><i class="fa-solid fa-envelope"></i> hello@mkdzines.com</a>
+      <p class="contact-remote"><i class="fa-solid fa-location-dot"></i> Available remotely, worldwide</p>
+    </div>
+
+    <form class="inquiry-form" id="inquiryForm">
+      <div class="form-progress">
+        <span class="form-step-dot active" data-step="1">1</span>
+        <span class="form-step-line"></span>
+        <span class="form-step-dot" data-step="2">2</span>
+        <span class="form-step-line"></span>
+        <span class="form-step-dot" data-step="3">3</span>
+        <span class="form-step-line"></span>
+        <span class="form-step-dot" data-step="4">4</span>
+      </div>
+
+      <div class="form-step active" data-step="1">
+        <h3>About You</h3>
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="tel" placeholder="WhatsApp Number" required>
+        <input type="text" placeholder="Business / Brand Name">
+        <button type="button" class="btn btn-gold form-next">Next <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+
+      <div class="form-step" data-step="2">
+        <h3>Project Type</h3>
+        <select required>
+          <option value="" disabled selected>What do you need?</option>
+          <option>Logo Design</option>
+          <option>Complete Branding</option>
+          <option>Social Media Branding</option>
+          <option>Packaging</option>
+          <option>Poster / Marketing Design</option>
+          <option>Rebranding</option>
+          <option>Other</option>
+        </select>
+        <div class="form-row">
+          <button type="button" class="btn btn-ghost form-back">Back</button>
+          <button type="button" class="btn btn-gold form-next">Next <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="3">
+        <h3>Budget</h3>
+        <div class="budget-options">
+          <label><input type="radio" name="budget"> Starter</label>
+          <label><input type="radio" name="budget"> Professional</label>
+          <label><input type="radio" name="budget"> Premium</label>
+          <label><input type="radio" name="budget"> Custom / Not Sure</label>
+        </div>
+        <div class="form-row">
+          <button type="button" class="btn btn-ghost form-back">Back</button>
+          <button type="button" class="btn btn-gold form-next">Next <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="4">
+        <h3>Project Details</h3>
+        <textarea rows="4" placeholder="Tell us about your brand and what you need."></textarea>
+        <input type="text" placeholder="Website or Instagram (optional)">
+        <div class="form-row">
+          <button type="button" class="btn btn-ghost form-back">Back</button>
+          <button type="submit" class="btn btn-gold">Submit Project Inquiry <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <i class="fa-solid fa-circle-check"></i>
+        <h3>Thanks! Your project inquiry has been received.</h3>
+        <p>MK Dzines will get back to you soon.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="logo-mark">MK</span>
+      <div>
+        <h3>MK DZINES</h3>
+        <p>Branding · Identity · Visual Design</p>
+      </div>
+    </div>
+    <nav class="footer-nav">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#packages">Packages</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="footer-social">
+      <a href="https://instagram.com/mk__dzines" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Behance"><i class="fa-brands fa-behance"></i></a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Dribbble"><i class="fa-brands fa-dribbble"></i></a>
+      <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+    </div>
+  </div>
+  <p class="footer-bottom">© 2026 MK Dzines. All Rights Reserved.</p>
+</footer>
+
+<!-- ===== FLOATING ACTION BUTTONS ===== -->
+<div class="float-stack">
+  <button type="button" class="float-btn feedback-float" id="feedbackFloatBtn">
+    <i class="fa-solid fa-comment-dots"></i>
+    <span>Feedback</span>
+  </button>
+  <a href="https://wa.me/0000000000?text=Hi%20MK%20Dzines%2C%20I%27m%20interested%20in%20your%20branding%20services." target="_blank" rel="noopener" class="float-btn whatsapp-float">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span>Chat on WhatsApp</span>
+  </a>
+</div>
+
+<!-- ===== CASE STUDY MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" id="modalClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- ===== PAYMENT MODAL ===== -->
+<div class="modal-overlay" id="paymentOverlay">
+  <div class="modal-box payment-box" id="paymentBox">
+    <button class="modal-close" id="paymentClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <p class="modal-eyebrow">Secure Payment</p>
+    <h2 id="paymentPkgName">Professional Package</h2>
+    <p class="payment-amount">₹<span id="paymentAmount">9,999</span> <span class="payment-note">starting from</span></p>
+    <p class="payment-desc" id="paymentDesc">Scan the QR code with any UPI app to pay, or use the bank details below. Add your name and package as the payment note so we can confirm it quickly.</p>
+
+    <div class="payment-grid">
+      <div class="payment-qr-wrap">
+        <img id="paymentQR" alt="Payment QR code" width="200" height="200">
+        <p class="qr-caption">Scan to pay via UPI</p>
+      </div>
+      <div class="payment-details">
+        <div class="payment-row"><strong>UPI ID</strong><span>mkdzines@upi</span></div>
+        <div class="payment-row"><strong>Account Name</strong><span>MK Dzines</span></div>
+        <div class="payment-row"><strong>Bank</strong><span>Add bank name</span></div>
+        <div class="payment-row"><strong>Account No.</strong><span>XXXX XXXX XXXX</span></div>
+        <div class="payment-row"><strong>IFSC</strong><span>ADD0IFSC</span></div>
+        <p class="payment-hint"><i class="fa-solid fa-circle-info"></i> Replace these placeholder details with your real UPI ID and bank account before going live.</p>
+      </div>
+    </div>
+
+    <a href="#" id="paymentConfirmBtn" target="_blank" rel="noopener" class="btn btn-gold payment-confirm">I've Paid — Confirm on WhatsApp <i class="fa-brands fa-whatsapp"></i></a>
+  </div>
+</div>
+
+<!-- ===== FEEDBACK MODAL ===== -->
+<div class="modal-overlay" id="feedbackOverlay">
+  <div class="modal-box feedback-box" id="feedbackBox">
+    <button class="modal-close" id="feedbackClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div id="feedbackFormWrap">
+      <p class="modal-eyebrow">Feedback</p>
+      <h2>How are we doing?</h2>
+      <p class="section-sub" style="margin-bottom:1.6rem;">Tell us about your experience with MK Dzines — good or bad, it helps.</p>
+      <form id="feedbackForm">
+        <div class="star-rating" id="starRating">
+          <i class="fa-regular fa-star" data-value="1"></i>
+          <i class="fa-regular fa-star" data-value="2"></i>
+          <i class="fa-regular fa-star" data-value="3"></i>
+          <i class="fa-regular fa-star" data-value="4"></i>
+          <i class="fa-regular fa-star" data-value="5"></i>
+        </div>
+        <input type="text" placeholder="Your name" required>
+        <textarea rows="4" placeholder="Share your feedback" required></textarea>
+        <button type="submit" class="btn btn-gold">Send Feedback <i class="fa-solid fa-arrow-right"></i></button>
+      </form>
+    </div>
+    <div class="form-success" id="feedbackSuccess">
+      <i class="fa-solid fa-circle-check"></i>
+      <h3>Thank you for your feedback!</h3>
+      <p>MK Dzines really appreciates you taking the time.</p>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
