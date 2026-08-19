@@ -41,6 +41,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ===== SHARED PACKAGE DATA ===== */
+  const packageData = {
+    starter: { name: 'Starter Package', amount: '4,999', desc: 'Logo Design, Logo Variations, Color Palette, Typography and Basic Brand Assets.' },
+    professional: { name: 'Professional Package', amount: '9,999', desc: 'Everything in Starter plus Brand Guidelines, Business Card, Social Media Templates, Profile Branding, a Packaging/Marketing Asset and Brand Mockups.' },
+    premium: { name: 'Premium Package', amount: '17,999', desc: 'Complete Brand Identity, Logo System, Brand Guidelines, Social Media Branding, Packaging, Marketing Materials, Multiple Mockups and a full Brand Presentation.' }
+  };
+
+  /* ===== PROJECT INQUIRY MODAL (open/close, shared across pages) ===== */
+  const projectOverlay = document.getElementById('projectOverlay');
+  const projectClose = document.getElementById('projectClose');
+
+  function openProjectModal(prefillPkg) {
+    if (!projectOverlay) return;
+    projectOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    const formEl = document.getElementById('inquiryForm');
+    if (formEl && formEl.classList.contains('submitted')) {
+      formEl.classList.remove('submitted');
+      formEl.reset();
+      formEl.querySelectorAll('.budget-card').forEach(c => c.classList.remove('selected'));
+      document.getElementById('formSuccess').classList.remove('active');
+      formEl.querySelectorAll('.form-step').forEach((s, idx) => s.classList.toggle('active', idx === 0));
+      formEl.querySelectorAll('.form-step-dot').forEach((d, idx) => d.classList.toggle('active', idx === 0));
+    }
+    if (prefillPkg) {
+      const radio = projectOverlay.querySelector(`input[name="budget"][value="${prefillPkg}"]`);
+      if (radio) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change'));
+      }
+    }
+  }
+  function closeProjectModal() {
+    if (!projectOverlay) return;
+    projectOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.js-open-project').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      openProjectModal(el.dataset.pkg);
+    });
+  });
+  if (projectClose) projectClose.addEventListener('click', closeProjectModal);
+  if (projectOverlay) projectOverlay.addEventListener('click', (e) => { if (e.target === projectOverlay) closeProjectModal(); });
+
   /* ===== PORTFOLIO DATA (index page only) ===== */
   const portfolioGrid = document.getElementById('portfolioGrid');
   if (portfolioGrid) {
@@ -134,11 +180,14 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="modal-stage"><span>Creative Direction</span><p>${p.direction}</p></div>
         <div class="modal-stage"><span>Applications</span><p>${p.applications}</p></div>
       </div>
-      <a href="#contact" class="btn btn-gold">Want a brand like this? <i class="fa-solid fa-arrow-right"></i></a>
+      <button type="button" class="btn btn-gold js-open-project">Want a brand like this? <i class="fa-solid fa-arrow-right"></i></button>
     `;
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
-    modalContent.querySelector('a').addEventListener('click', closeModal);
+    modalContent.querySelector('button').addEventListener('click', () => {
+      closeModal();
+      openProjectModal();
+    });
   });
   } // end portfolioGrid guard
 
@@ -180,11 +229,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ===== MULTI-STEP INQUIRY FORM (index page only) ===== */
+  /* ===== MULTI-STEP INQUIRY FORM (project modal, all pages) ===== */
   const form = document.getElementById('inquiryForm');
   if (form) {
     const steps = form.querySelectorAll('.form-step');
     const dotsForm = form.querySelectorAll('.form-step-dot');
+    const budgetError = document.getElementById('budgetError');
     let stepIndex = 0;
 
     function showStep(i) {
@@ -193,11 +243,29 @@ document.addEventListener('DOMContentLoaded', () => {
       stepIndex = i;
     }
 
+    /* highlight selected plan card + clear error */
+    form.querySelectorAll('input[name="budget"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        form.querySelectorAll('.budget-card').forEach(c => c.classList.remove('selected'));
+        const card = radio.closest('.budget-card');
+        if (card) card.classList.add('selected');
+        if (budgetError) budgetError.classList.remove('show');
+      });
+    });
+
     form.querySelectorAll('.form-next').forEach(btn => {
       btn.addEventListener('click', () => {
         const currentStep = steps[stepIndex];
         const required = currentStep.querySelectorAll('[required]');
         for (const field of required) {
+          if (field.type === 'radio') {
+            const checked = currentStep.querySelector(`input[name="${field.name}"]:checked`);
+            if (!checked) {
+              if (budgetError) budgetError.classList.add('show');
+              return;
+            }
+            continue;
+          }
           if (!field.value) { field.reportValidity(); return; }
         }
         if (stepIndex < steps.length - 1) showStep(stepIndex + 1);
@@ -209,18 +277,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      const checkedBudget = form.querySelector('input[name="budget"]:checked');
+      const pkgKey = checkedBudget ? checkedBudget.value : null;
+      const successPlan = document.getElementById('formSuccessPlan');
+      if (successPlan) {
+        if (pkgKey && packageData[pkgKey]) {
+          const pkg = packageData[pkgKey];
+          successPlan.innerHTML = `
+            <p class="plan-chosen">Selected plan: <strong>${pkg.name}</strong> — ₹${pkg.amount} <span>starting from</span></p>
+            <button type="button" class="btn btn-gold" id="successPayBtn">Proceed to Payment <i class="fa-solid fa-arrow-right"></i></button>
+          `;
+          const payBtn = document.getElementById('successPayBtn');
+          if (payBtn) payBtn.addEventListener('click', () => {
+            closeProjectModal();
+            openPayment(pkgKey);
+          });
+        } else {
+          successPlan.innerHTML = `<p class="plan-chosen">We'll follow up to discuss the best plan for your budget.</p>`;
+        }
+      }
       form.classList.add('submitted');
       document.getElementById('formSuccess').classList.add('active');
     });
   }
 
   /* ===== PAYMENT MODAL ===== */
-  const packageData = {
-    starter: { name: 'Starter Package', amount: '4,999', desc: 'Logo Design, Logo Variations, Color Palette, Typography and Basic Brand Assets.' },
-    professional: { name: 'Professional Package', amount: '9,999', desc: 'Everything in Starter plus Brand Guidelines, Business Card, Social Media Templates, Profile Branding, a Packaging/Marketing Asset and Brand Mockups.' },
-    premium: { name: 'Premium Package', amount: '17,999', desc: 'Complete Brand Identity, Logo System, Brand Guidelines, Social Media Branding, Packaging, Marketing Materials, Multiple Mockups and a full Brand Presentation.' }
-  };
-
   const paymentOverlay = document.getElementById('paymentOverlay');
   const paymentPkgName = document.getElementById('paymentPkgName');
   const paymentAmount = document.getElementById('paymentAmount');
@@ -303,26 +384,55 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ===== GALLERY PAGE ===== */
   const galleryGrid = document.getElementById('galleryGrid');
   if (galleryGrid) {
+    /* Each brand: swap "website"/"instagram" for the real links, and give
+       "images" real photo URLs when you have them — the carousel just
+       loops through whatever is in that array. */
     const galleryProjects = [
-      { name: 'Bun Theory', industry: 'Restaurant / Food Branding', status: 'completed', desc: 'Full identity system for a modern burger concept.' },
-      { name: 'VegCut', industry: 'Fresh Food / Grocery Branding', status: 'completed', desc: 'Clean, modern identity for a fresh-cut produce brand.' },
-      { name: 'Café Brand', industry: 'Food & Beverage Branding', status: 'completed', desc: 'Warm, editorial identity for an independent café.' },
-      { name: 'Fashion Label', industry: 'Clothing & Lifestyle Branding', status: 'ongoing', desc: 'Streetwear identity and campaign rollout, currently in design.' },
-      { name: 'Glow Beauty Co.', industry: 'Beauty & Skincare Branding', status: 'ongoing', desc: 'Packaging and social identity in progress.' },
-      { name: 'Local Roast', industry: 'Coffee Brand', status: 'upcoming', desc: 'Full rebrand starting next month.' },
-      { name: 'Studio Threads', industry: 'Personal Brand', status: 'upcoming', desc: 'Visual identity for a content creator, kicking off soon.' }
+      { id: 'bun-theory', name: 'Bun Theory', industry: 'Restaurant / Food Branding', status: 'completed', desc: 'Full identity system for a modern burger concept.', website: 'https://example.com/bun-theory', instagram: 'https://instagram.com/buntheory', images: [
+        { label: 'Logo Mark', icon: 'fa-solid fa-swatchbook' },
+        { label: 'Packaging', icon: 'fa-solid fa-box' },
+        { label: 'Instagram Post', icon: 'fa-brands fa-instagram' },
+        { label: 'Menu Board', icon: 'fa-solid fa-table-columns' }
+      ] },
+      { id: 'vegcut', name: 'VegCut', industry: 'Fresh Food / Grocery Branding', status: 'completed', desc: 'Clean, modern identity for a fresh-cut produce brand.', website: 'https://example.com/vegcut', instagram: 'https://instagram.com/vegcut', images: [
+        { label: 'Logo Mark', icon: 'fa-solid fa-swatchbook' },
+        { label: 'Product Label', icon: 'fa-solid fa-tag' },
+        { label: 'Delivery Packaging', icon: 'fa-solid fa-box' }
+      ] },
+      { id: 'cafe-brand', name: 'Café Brand', industry: 'Food & Beverage Branding', status: 'completed', desc: 'Warm, editorial identity for an independent café.', website: 'https://example.com/cafe-brand', instagram: 'https://instagram.com/cafebrand', images: [
+        { label: 'Logo Mark', icon: 'fa-solid fa-swatchbook' },
+        { label: 'Café Cup', icon: 'fa-solid fa-mug-hot' },
+        { label: 'Signage', icon: 'fa-solid fa-store' },
+        { label: 'Instagram Grid', icon: 'fa-brands fa-instagram' }
+      ] },
+      { id: 'fashion-label', name: 'Fashion Label', industry: 'Clothing & Lifestyle Branding', status: 'ongoing', desc: 'Streetwear identity and campaign rollout, currently in design.', website: 'https://example.com/fashion-label', instagram: 'https://instagram.com/fashionlabel', images: [
+        { label: 'Logo Mark', icon: 'fa-solid fa-swatchbook' },
+        { label: 'Clothing Tag', icon: 'fa-solid fa-tag' },
+        { label: 'Lookbook Poster', icon: 'fa-solid fa-table-columns' }
+      ] },
+      { id: 'glow-beauty', name: 'Glow Beauty Co.', industry: 'Beauty & Skincare Branding', status: 'ongoing', desc: 'Packaging and social identity in progress.', website: 'https://example.com/glow-beauty', instagram: 'https://instagram.com/glowbeautyco', images: [
+        { label: 'Logo Mark', icon: 'fa-solid fa-swatchbook' },
+        { label: 'Packaging', icon: 'fa-solid fa-box' }
+      ] },
+      { id: 'local-roast', name: 'Local Roast', industry: 'Coffee Brand', status: 'upcoming', desc: 'Full rebrand starting next month.', website: '', instagram: 'https://instagram.com/localroast', images: [
+        { label: 'Concept Mark', icon: 'fa-solid fa-swatchbook' }
+      ] },
+      { id: 'studio-threads', name: 'Studio Threads', industry: 'Personal Brand', status: 'upcoming', desc: 'Visual identity for a content creator, kicking off soon.', website: '', instagram: 'https://instagram.com/studiothreads', images: [
+        { label: 'Concept Mark', icon: 'fa-solid fa-swatchbook' }
+      ] }
     ];
 
     const statusLabel = { completed: 'Completed', ongoing: 'Ongoing', upcoming: 'Upcoming' };
 
     galleryGrid.innerHTML = galleryProjects.map(p => `
-      <div class="portfolio-card reveal" data-status="${p.status}">
+      <div class="portfolio-card reveal" data-status="${p.status}" data-id="${p.id}">
         <span class="status-badge status-${p.status}">${statusLabel[p.status]}</span>
         <div class="portfolio-visual"><span>${p.name}</span></div>
         <div class="portfolio-info">
           <p class="portfolio-cat">${p.industry}</p>
           <h3>${p.name}</h3>
           <p>${p.desc}</p>
+          <span class="portfolio-view">View Gallery &amp; Links →</span>
         </div>
       </div>
     `).join('');
@@ -340,6 +450,82 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     galleryGrid.querySelectorAll('.portfolio-card').forEach(el => el.classList.add('reveal'));
+
+    /* ===== BRAND DETAIL MODAL + CAROUSEL ===== */
+    const brandOverlay = document.getElementById('brandOverlay');
+    const brandModalContent = document.getElementById('brandModalContent');
+    const brandClose = document.getElementById('brandClose');
+
+    function closeBrandModal() {
+      if (!brandOverlay) return;
+      brandOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    if (brandClose) brandClose.addEventListener('click', closeBrandModal);
+    if (brandOverlay) brandOverlay.addEventListener('click', (e) => { if (e.target === brandOverlay) closeBrandModal(); });
+
+    function openBrandModal(p) {
+      if (!brandOverlay || !brandModalContent) return;
+      let slide = 0;
+
+      const slidesHtml = p.images.map((img, i) => `
+        <div class="carousel-slide${i === 0 ? ' active' : ''}">
+          <i class="${img.icon}"></i>
+          <span>${img.label}</span>
+        </div>
+      `).join('');
+      const dotsHtml = p.images.map((_, i) => `<span class="carousel-dot${i === 0 ? ' active' : ''}" data-i="${i}"></span>`).join('');
+
+      const websiteBtn = p.website ? `<a href="${p.website}" target="_blank" rel="noopener" class="btn btn-outline-gold"><i class="fa-solid fa-globe"></i> Visit Website</a>` : '';
+      const igBtn = p.instagram ? `<a href="${p.instagram}" target="_blank" rel="noopener" class="btn btn-gold"><i class="fa-brands fa-instagram"></i> View on Instagram</a>` : '';
+
+      brandModalContent.innerHTML = `
+        <p class="modal-eyebrow">${statusLabel[p.status]} Project</p>
+        <h2>${p.name}</h2>
+        <div class="modal-meta">
+          <div><strong>Industry</strong>${p.industry}</div>
+        </div>
+        <p style="color:var(--graphite); margin-bottom:1.4rem;">${p.desc}</p>
+
+        <div class="brand-carousel">
+          <div class="carousel-track">${slidesHtml}</div>
+          ${p.images.length > 1 ? `
+            <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+            <button type="button" class="carousel-arrow carousel-next" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+          ` : ''}
+        </div>
+        ${p.images.length > 1 ? `<div class="carousel-dots">${dotsHtml}</div>` : ''}
+
+        <div class="brand-links">
+          ${websiteBtn}
+          ${igBtn}
+          ${!p.website && !p.instagram ? '<p class="brand-links-empty">Links for this brand coming soon.</p>' : ''}
+        </div>
+      `;
+
+      const slides = brandModalContent.querySelectorAll('.carousel-slide');
+      const dots = brandModalContent.querySelectorAll('.carousel-dot');
+      function goToSlide(i) {
+        slide = (i + slides.length) % slides.length;
+        slides.forEach((s, idx) => s.classList.toggle('active', idx === slide));
+        dots.forEach((d, idx) => d.classList.toggle('active', idx === slide));
+      }
+      const prevBtn = brandModalContent.querySelector('.carousel-prev');
+      const nextBtn = brandModalContent.querySelector('.carousel-next');
+      if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(slide - 1));
+      if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(slide + 1));
+      dots.forEach(dot => dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.i, 10))));
+
+      brandOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    galleryGrid.addEventListener('click', (e) => {
+      const card = e.target.closest('.portfolio-card');
+      if (!card) return;
+      const p = galleryProjects.find(gp => gp.id === card.dataset.id);
+      if (p) openBrandModal(p);
+    });
   }
 
   /* ===== SCROLL REVEAL ===== */
