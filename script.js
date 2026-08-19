@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== HERO CHIP PARALLAX ===== */
   const heroStage = document.getElementById('heroStage');
-  if (window.matchMedia('(min-width: 1081px)').matches) {
+  if (heroStage && window.matchMedia('(min-width: 1081px)').matches) {
     heroStage.addEventListener('mousemove', (e) => {
       const rect = heroStage.getBoundingClientRect();
       const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
@@ -41,7 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ===== PORTFOLIO DATA ===== */
+  /* ===== PORTFOLIO DATA (index page only) ===== */
+  const portfolioGrid = document.getElementById('portfolioGrid');
+  if (portfolioGrid) {
   const projects = [
     {
       id: 'bun-theory', name: 'Bun Theory', industry: 'Restaurant / Food Branding',
@@ -77,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
-  const portfolioGrid = document.getElementById('portfolioGrid');
   portfolioGrid.innerHTML = projects.map(p => `
     <div class="portfolio-card reveal" data-cats="${p.cats.join(' ')}" data-id="${p.id}">
       <div class="portfolio-visual"><span>${p.name}</span></div>
@@ -139,32 +140,38 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = 'hidden';
     modalContent.querySelector('a').addEventListener('click', closeModal);
   });
+  } // end portfolioGrid guard
 
-  /* ===== INSTAGRAM GRID ===== */
-  const igIcons = ['fa-solid fa-swatchbook','fa-solid fa-tag','fa-solid fa-mug-hot','fa-solid fa-shirt','fa-solid fa-box','fa-solid fa-pen-nib','fa-solid fa-id-card','fa-solid fa-shapes','fa-solid fa-bullhorn','fa-solid fa-store','fa-solid fa-palette','fa-solid fa-table-columns'];
-  document.getElementById('igGrid').innerHTML = igIcons.map(icon => `<div class="ig-tile reveal"><i class="${icon}"></i></div>`).join('');
-
-  /* ===== TESTIMONIAL SLIDER ===== */
-  const track = document.getElementById('testimonialTrack');
-  const cards = track.querySelectorAll('.testimonial-card');
-  const dotsWrap = document.getElementById('sliderDots');
-  let current = 0;
-  cards.forEach((_, i) => {
-    const dot = document.createElement('span');
-    if (i === 0) dot.classList.add('active');
-    dot.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(dot);
-  });
-  const dots = dotsWrap.querySelectorAll('span');
-
-  function goTo(i) {
-    current = i;
-    track.style.transform = `translateX(-${i * 100}%)`;
-    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+  /* ===== INSTAGRAM GRID (index page only) ===== */
+  const igGrid = document.getElementById('igGrid');
+  if (igGrid) {
+    const igIcons = ['fa-solid fa-swatchbook','fa-solid fa-tag','fa-solid fa-mug-hot','fa-solid fa-shirt','fa-solid fa-box','fa-solid fa-pen-nib','fa-solid fa-id-card','fa-solid fa-shapes','fa-solid fa-bullhorn','fa-solid fa-store','fa-solid fa-palette','fa-solid fa-table-columns'];
+    igGrid.innerHTML = igIcons.map(icon => `<div class="ig-tile reveal"><i class="${icon}"></i></div>`).join('');
   }
-  setInterval(() => goTo((current + 1) % cards.length), 5500);
 
-  /* ===== FAQ ACCORDION ===== */
+  /* ===== TESTIMONIAL SLIDER (index page only) ===== */
+  const track = document.getElementById('testimonialTrack');
+  if (track) {
+    const cards = track.querySelectorAll('.testimonial-card');
+    const dotsWrap = document.getElementById('sliderDots');
+    let current = 0;
+    cards.forEach((_, i) => {
+      const dot = document.createElement('span');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+    const dots = dotsWrap.querySelectorAll('span');
+
+    function goTo(i) {
+      current = i;
+      track.style.transform = `translateX(-${i * 100}%)`;
+      dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+    }
+    setInterval(() => goTo((current + 1) % cards.length), 5500);
+  }
+
+  /* ===== FAQ ACCORDION (index page only) ===== */
   document.querySelectorAll('.faq-item').forEach(item => {
     item.querySelector('.faq-q').addEventListener('click', () => {
       const wasOpen = item.classList.contains('open');
@@ -173,37 +180,167 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ===== MULTI-STEP INQUIRY FORM ===== */
+  /* ===== MULTI-STEP INQUIRY FORM (index page only) ===== */
   const form = document.getElementById('inquiryForm');
-  const steps = form.querySelectorAll('.form-step');
-  const dotsForm = form.querySelectorAll('.form-step-dot');
-  let stepIndex = 0;
+  if (form) {
+    const steps = form.querySelectorAll('.form-step');
+    const dotsForm = form.querySelectorAll('.form-step-dot');
+    let stepIndex = 0;
 
-  function showStep(i) {
-    steps.forEach((s, idx) => s.classList.toggle('active', idx === i));
-    dotsForm.forEach((d, idx) => d.classList.toggle('active', idx <= i));
-    stepIndex = i;
+    function showStep(i) {
+      steps.forEach((s, idx) => s.classList.toggle('active', idx === i));
+      dotsForm.forEach((d, idx) => d.classList.toggle('active', idx <= i));
+      stepIndex = i;
+    }
+
+    form.querySelectorAll('.form-next').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const currentStep = steps[stepIndex];
+        const required = currentStep.querySelectorAll('[required]');
+        for (const field of required) {
+          if (!field.value) { field.reportValidity(); return; }
+        }
+        if (stepIndex < steps.length - 1) showStep(stepIndex + 1);
+      });
+    });
+    form.querySelectorAll('.form-back').forEach(btn => {
+      btn.addEventListener('click', () => { if (stepIndex > 0) showStep(stepIndex - 1); });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.classList.add('submitted');
+      document.getElementById('formSuccess').classList.add('active');
+    });
   }
 
-  form.querySelectorAll('.form-next').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const currentStep = steps[stepIndex];
-      const required = currentStep.querySelectorAll('[required]');
-      for (const field of required) {
-        if (!field.value) { field.reportValidity(); return; }
-      }
-      if (stepIndex < steps.length - 1) showStep(stepIndex + 1);
-    });
-  });
-  form.querySelectorAll('.form-back').forEach(btn => {
-    btn.addEventListener('click', () => { if (stepIndex > 0) showStep(stepIndex - 1); });
-  });
+  /* ===== PAYMENT MODAL ===== */
+  const packageData = {
+    starter: { name: 'Starter Package', amount: '4,999', desc: 'Logo Design, Logo Variations, Color Palette, Typography and Basic Brand Assets.' },
+    professional: { name: 'Professional Package', amount: '9,999', desc: 'Everything in Starter plus Brand Guidelines, Business Card, Social Media Templates, Profile Branding, a Packaging/Marketing Asset and Brand Mockups.' },
+    premium: { name: 'Premium Package', amount: '17,999', desc: 'Complete Brand Identity, Logo System, Brand Guidelines, Social Media Branding, Packaging, Marketing Materials, Multiple Mockups and a full Brand Presentation.' }
+  };
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    form.classList.add('submitted');
-    document.getElementById('formSuccess').classList.add('active');
+  const paymentOverlay = document.getElementById('paymentOverlay');
+  const paymentPkgName = document.getElementById('paymentPkgName');
+  const paymentAmount = document.getElementById('paymentAmount');
+  const paymentDesc = document.getElementById('paymentDesc');
+  const paymentQR = document.getElementById('paymentQR');
+  const paymentConfirmBtn = document.getElementById('paymentConfirmBtn');
+
+  function openPayment(pkgKey) {
+    const pkg = packageData[pkgKey] || packageData.professional;
+    paymentPkgName.textContent = pkg.name;
+    paymentAmount.textContent = pkg.amount;
+    paymentDesc.textContent = `Scan the QR code with any UPI app to pay, or use the bank details below. Includes: ${pkg.desc}`;
+
+    const upiString = `upi://pay?pa=mkdzines@upi&pn=MK%20Dzines&am=${pkg.amount.replace(/,/g, '')}&cu=INR&tn=${encodeURIComponent(pkg.name)}`;
+    paymentQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiString)}`;
+
+    const waMsg = encodeURIComponent(`Hi MK Dzines, I've made a payment for the ${pkg.name} (₹${pkg.amount}). Here's my confirmation.`);
+    paymentConfirmBtn.href = `https://wa.me/0000000000?text=${waMsg}`;
+
+    paymentOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePayment() {
+    paymentOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.pkg-btn').forEach(btn => {
+    btn.addEventListener('click', () => openPayment(btn.dataset.pkg));
   });
+  const paymentCloseBtn = document.getElementById('paymentClose');
+  if (paymentCloseBtn) paymentCloseBtn.addEventListener('click', closePayment);
+  if (paymentOverlay) paymentOverlay.addEventListener('click', (e) => { if (e.target === paymentOverlay) closePayment(); });
+
+  /* ===== FEEDBACK MODAL ===== */
+  const feedbackOverlay = document.getElementById('feedbackOverlay');
+  const feedbackFloatBtn = document.getElementById('feedbackFloatBtn');
+  const feedbackClose = document.getElementById('feedbackClose');
+  const feedbackForm = document.getElementById('feedbackForm');
+  const feedbackFormWrap = document.getElementById('feedbackFormWrap');
+  const feedbackSuccess = document.getElementById('feedbackSuccess');
+  const starRating = document.getElementById('starRating');
+  let selectedRating = 0;
+
+  if (feedbackFloatBtn) {
+    feedbackFloatBtn.addEventListener('click', () => {
+      feedbackOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  function closeFeedback() {
+    feedbackOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  if (feedbackClose) feedbackClose.addEventListener('click', closeFeedback);
+  if (feedbackOverlay) feedbackOverlay.addEventListener('click', (e) => { if (e.target === feedbackOverlay) closeFeedback(); });
+
+  if (starRating) {
+    const stars = starRating.querySelectorAll('i');
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        selectedRating = parseInt(star.dataset.value, 10);
+        stars.forEach(s => {
+          const active = parseInt(s.dataset.value, 10) <= selectedRating;
+          s.classList.toggle('active', active);
+          s.classList.toggle('fa-solid', active);
+          s.classList.toggle('fa-regular', !active);
+        });
+      });
+    });
+  }
+  if (feedbackForm) {
+    feedbackForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      feedbackFormWrap.classList.add('hidden');
+      feedbackSuccess.classList.add('active');
+      setTimeout(closeFeedback, 2200);
+    });
+  }
+
+  /* ===== GALLERY PAGE ===== */
+  const galleryGrid = document.getElementById('galleryGrid');
+  if (galleryGrid) {
+    const galleryProjects = [
+      { name: 'Bun Theory', industry: 'Restaurant / Food Branding', status: 'completed', desc: 'Full identity system for a modern burger concept.' },
+      { name: 'VegCut', industry: 'Fresh Food / Grocery Branding', status: 'completed', desc: 'Clean, modern identity for a fresh-cut produce brand.' },
+      { name: 'Café Brand', industry: 'Food & Beverage Branding', status: 'completed', desc: 'Warm, editorial identity for an independent café.' },
+      { name: 'Fashion Label', industry: 'Clothing & Lifestyle Branding', status: 'ongoing', desc: 'Streetwear identity and campaign rollout, currently in design.' },
+      { name: 'Glow Beauty Co.', industry: 'Beauty & Skincare Branding', status: 'ongoing', desc: 'Packaging and social identity in progress.' },
+      { name: 'Local Roast', industry: 'Coffee Brand', status: 'upcoming', desc: 'Full rebrand starting next month.' },
+      { name: 'Studio Threads', industry: 'Personal Brand', status: 'upcoming', desc: 'Visual identity for a content creator, kicking off soon.' }
+    ];
+
+    const statusLabel = { completed: 'Completed', ongoing: 'Ongoing', upcoming: 'Upcoming' };
+
+    galleryGrid.innerHTML = galleryProjects.map(p => `
+      <div class="portfolio-card reveal" data-status="${p.status}">
+        <span class="status-badge status-${p.status}">${statusLabel[p.status]}</span>
+        <div class="portfolio-visual"><span>${p.name}</span></div>
+        <div class="portfolio-info">
+          <p class="portfolio-cat">${p.industry}</p>
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+        </div>
+      </div>
+    `).join('');
+
+    const galleryFilterBtns = document.querySelectorAll('.gallery-filter-btn');
+    galleryFilterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        galleryFilterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        galleryGrid.querySelectorAll('.portfolio-card').forEach(card => {
+          card.classList.toggle('hidden-card', f !== 'all' && card.dataset.status !== f);
+        });
+      });
+    });
+
+    galleryGrid.querySelectorAll('.portfolio-card').forEach(el => el.classList.add('reveal'));
+  }
 
   /* ===== SCROLL REVEAL ===== */
   const revealTargets = document.querySelectorAll('.service-card, .package-card, .why-item, .process-step, .industry-chip, .portfolio-card, .ig-tile, .faq-item');
