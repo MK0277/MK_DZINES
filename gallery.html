@@ -36,7 +36,7 @@
       <a href="https://instagram.com/mk__dzines" target="_blank" rel="noopener" class="ig-icon" aria-label="Instagram">
         <i class="fa-brands fa-instagram"></i>
       </a>
-      <a href="index.html#contact" class="btn btn-gold nav-cta">Start a Project <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#" class="btn btn-gold nav-cta js-open-project">Start a Project <i class="fa-solid fa-arrow-right"></i></a>
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -54,7 +54,7 @@
   <a href="index.html#process">Process</a>
   <a href="index.html#about">About</a>
   <a href="index.html#contact">Contact</a>
-  <a href="index.html#contact" class="btn btn-gold" style="margin-top:1.5rem;">Start a Project</a>
+  <a href="#" class="btn btn-gold js-open-project" style="margin-top:1.5rem;">Start a Project</a>
   <a href="https://instagram.com/mk__dzines" target="_blank" rel="noopener" class="mobile-ig"><i class="fa-brands fa-instagram"></i> @mk__dzines</a>
 </div>
 
@@ -73,6 +73,7 @@
     <button class="filter-btn gallery-filter-btn" data-filter="ongoing" style="border-color:var(--line); color:var(--charcoal);">Ongoing</button>
     <button class="filter-btn gallery-filter-btn" data-filter="upcoming" style="border-color:var(--line); color:var(--charcoal);">Upcoming</button>
   </div>
+  <p class="gallery-hint">Click any project to browse its image carousel and visit the brand online.</p>
   <div class="portfolio-grid" id="galleryGrid" style="--card-bg:1;"></div>
 </section>
 
@@ -80,7 +81,7 @@
 <section class="section section-dark" style="text-align:center; padding-top:4.5rem; padding-bottom:5.5rem;">
   <p class="eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span>Ready When You Are</p>
   <h2 class="section-title" style="margin-bottom:1.6rem;">Have a project in mind?</h2>
-  <a href="index.html#contact" class="btn btn-gold btn-lg">Start a Project <i class="fa-solid fa-arrow-right"></i></a>
+  <a href="#" class="btn btn-gold btn-lg js-open-project">Start a Project <i class="fa-solid fa-arrow-right"></i></a>
 </section>
 
 <!-- ===== FOOTER ===== -->
@@ -122,6 +123,151 @@
     <i class="fa-brands fa-whatsapp"></i>
     <span>Chat on WhatsApp</span>
   </a>
+</div>
+
+<!-- ===== BRAND DETAIL MODAL ===== -->
+<div class="modal-overlay" id="brandOverlay">
+  <div class="modal-box brand-modal-box" id="brandBox">
+    <button class="modal-close" id="brandClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div id="brandModalContent"></div>
+  </div>
+</div>
+
+<!-- ===== PROJECT INQUIRY MODAL ===== -->
+<div class="modal-overlay" id="projectOverlay">
+  <div class="modal-box project-modal-box" id="projectBox">
+    <button class="modal-close" id="projectClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <p class="modal-eyebrow">Start a Project</p>
+    <h2>Tell Us About Your Brand</h2>
+
+    <form class="inquiry-form" id="inquiryForm">
+      <div class="form-progress">
+        <span class="form-step-dot active" data-step="1">1</span>
+        <span class="form-step-line"></span>
+        <span class="form-step-dot" data-step="2">2</span>
+        <span class="form-step-line"></span>
+        <span class="form-step-dot" data-step="3">3</span>
+        <span class="form-step-line"></span>
+        <span class="form-step-dot" data-step="4">4</span>
+      </div>
+
+      <div class="form-step active" data-step="1">
+        <h3>About You</h3>
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="tel" placeholder="WhatsApp Number" required>
+        <input type="text" placeholder="Business / Brand Name">
+        <button type="button" class="btn btn-gold form-next">Next <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+
+      <div class="form-step" data-step="2">
+        <h3>Project Type</h3>
+        <select required>
+          <option value="" disabled selected>What do you need?</option>
+          <option>Logo Design</option>
+          <option>Complete Branding</option>
+          <option>Social Media Branding</option>
+          <option>Packaging</option>
+          <option>Poster / Marketing Design</option>
+          <option>Rebranding</option>
+          <option>Other</option>
+        </select>
+        <div class="form-row">
+          <button type="button" class="btn btn-ghost form-back">Back</button>
+          <button type="button" class="btn btn-gold form-next">Next <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="3">
+        <h3>Choose Your Plan</h3>
+        <p class="budget-hint">Pick the package closest to your budget — you can always adjust later.</p>
+        <div class="budget-options" id="budgetOptions">
+          <label class="budget-card" data-pkg="starter">
+            <input type="radio" name="budget" value="starter" required>
+            <span class="budget-card-top">
+              <span class="budget-card-name">Starter</span>
+              <span class="budget-card-price">₹4,999</span>
+            </span>
+            <span class="budget-card-desc">Logo, palette, typography &amp; basic brand assets</span>
+          </label>
+          <label class="budget-card" data-pkg="professional">
+            <input type="radio" name="budget" value="professional" required>
+            <span class="budget-card-top">
+              <span class="budget-card-name">Professional</span>
+              <span class="budget-card-price">₹9,999</span>
+            </span>
+            <span class="budget-card-desc">Everything in Starter + guidelines, business card &amp; social templates</span>
+          </label>
+          <label class="budget-card" data-pkg="premium">
+            <input type="radio" name="budget" value="premium" required>
+            <span class="budget-card-top">
+              <span class="budget-card-name">Premium</span>
+              <span class="budget-card-price">₹17,999</span>
+            </span>
+            <span class="budget-card-desc">Complete brand system, packaging &amp; marketing materials</span>
+          </label>
+          <label class="budget-card" data-pkg="custom">
+            <input type="radio" name="budget" value="custom" required>
+            <span class="budget-card-top">
+              <span class="budget-card-name">Custom</span>
+              <span class="budget-card-price">Let's talk</span>
+            </span>
+            <span class="budget-card-desc">Not sure yet — we'll suggest a plan for you</span>
+          </label>
+        </div>
+        <p class="budget-error" id="budgetError">Please select a plan to continue.</p>
+        <div class="form-row">
+          <button type="button" class="btn btn-ghost form-back">Back</button>
+          <button type="button" class="btn btn-gold form-next">Next <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div class="form-step" data-step="4">
+        <h3>Project Details</h3>
+        <textarea rows="4" placeholder="Tell us about your brand and what you need."></textarea>
+        <input type="text" placeholder="Website or Instagram (optional)">
+        <div class="form-row">
+          <button type="button" class="btn btn-ghost form-back">Back</button>
+          <button type="submit" class="btn btn-gold">Submit Project Inquiry <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <i class="fa-solid fa-circle-check"></i>
+        <h3>Thanks! Your project inquiry has been received.</h3>
+        <p>MK Dzines will get back to you soon.</p>
+        <div class="form-success-plan" id="formSuccessPlan"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== PAYMENT MODAL ===== -->
+<div class="modal-overlay" id="paymentOverlay">
+  <div class="modal-box payment-box" id="paymentBox">
+    <button class="modal-close" id="paymentClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <p class="modal-eyebrow">Secure Payment</p>
+    <h2 id="paymentPkgName">Professional Package</h2>
+    <p class="payment-amount">₹<span id="paymentAmount">9,999</span> <span class="payment-note">starting from</span></p>
+    <p class="payment-desc" id="paymentDesc">Scan the QR code with any UPI app to pay, or use the bank details below. Add your name and package as the payment note so we can confirm it quickly.</p>
+
+    <div class="payment-grid">
+      <div class="payment-qr-wrap">
+        <img id="paymentQR" alt="Payment QR code" width="200" height="200">
+        <p class="qr-caption">Scan to pay via UPI</p>
+      </div>
+      <div class="payment-details">
+        <div class="payment-row"><strong>UPI ID</strong><span>mkdzines@upi</span></div>
+        <div class="payment-row"><strong>Account Name</strong><span>MK Dzines</span></div>
+        <div class="payment-row"><strong>Bank</strong><span>Add bank name</span></div>
+        <div class="payment-row"><strong>Account No.</strong><span>XXXX XXXX XXXX</span></div>
+        <div class="payment-row"><strong>IFSC</strong><span>ADD0IFSC</span></div>
+        <p class="payment-hint"><i class="fa-solid fa-circle-info"></i> Replace these placeholder details with your real UPI ID and bank account before going live.</p>
+      </div>
+    </div>
+
+    <a href="#" id="paymentConfirmBtn" target="_blank" rel="noopener" class="btn btn-gold payment-confirm">I've Paid — Confirm on WhatsApp <i class="fa-brands fa-whatsapp"></i></a>
+  </div>
 </div>
 
 <!-- ===== FEEDBACK MODAL ===== -->
