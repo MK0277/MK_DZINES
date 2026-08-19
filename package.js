@@ -2,738 +2,918 @@ document. write('
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Branding Packages | MK Dzines</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0b0b0b;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .packages-page {
+            width: 100%;
+            max-width: 1450px;
+            margin: 0 auto;
+            padding: 90px 5%;
+        }
 
-  <title>Branding Packages | MK Dzines</title>
 
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        /* =========================
+           SECTION HEADER
+        ========================= */
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        .section-head {
+            text-align: center;
+            margin-bottom: 55px;
+        }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #0b0b0b;
-      color: #fff;
-      min-height: 100vh;
-    }
+        .eyebrow {
+            color: #d4af37;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
 
-    .packages-page {
-      width: 100%;
-      max-width: 1400px;
-      margin: auto;
-      padding: 80px 5%;
-      overflow: hidden;
-    }
+        .eyebrow-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background: #d4af37;
+            border-radius: 50%;
+            margin-right: 7px;
+        }
 
-    /* HEADER */
+        .section-title {
+            font-size: clamp(36px, 5vw, 62px);
+            line-height: 1.1;
+            margin-bottom: 18px;
+        }
 
-    .section-head {
-      text-align: center;
-      margin-bottom: 55px;
-    }
+        .section-subtitle {
+            max-width: 680px;
+            margin: auto;
+            color: #999999;
+            font-size: 16px;
+            line-height: 1.7;
+        }
 
-    .eyebrow {
-      color: #d4af37;
-      font-size: 13px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
 
-    .eyebrow-dot {
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      background: #d4af37;
-      border-radius: 50%;
-      margin-right: 7px;
-    }
+        /* =========================
+           MANUAL SLIDER
+        ========================= */
 
-    .section-title {
-      font-size: clamp(35px, 5vw, 60px);
-      margin-bottom: 15px;
-    }
+        .packages-slider {
+            display: flex;
+            gap: 25px;
 
-    .section-subtitle {
-      max-width: 650px;
-      margin: auto;
-      color: #aaa;
-      line-height: 1.7;
-      font-size: 16px;
-    }
+            width: 100%;
 
+            overflow-x: auto;
+            overflow-y: hidden;
 
-    /* SLIDER */
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
 
-    .packages-slider {
-      display: flex;
-      gap: 25px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
 
-      width: 100%;
+            padding: 10px 5px 30px;
 
-      overflow-x: auto;
-      overflow-y: hidden;
+            cursor: grab;
 
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
+            user-select: none;
+            -webkit-user-select: none;
 
-      scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
 
-      cursor: grab;
+        /* Hide scrollbar completely */
 
-      padding: 10px 4px 30px;
+        .packages-slider::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
 
-      user-select: none;
+        .packages-slider:active {
+            cursor: grabbing;
+        }
 
-      -webkit-overflow-scrolling: touch;
-    }
 
-    .packages-slider::-webkit-scrollbar {
-      display: none;
-    }
+        /* =========================
+           SLIDE
+        ========================= */
 
-    .packages-slider:active {
-      cursor: grabbing;
-    }
+        .package-slide {
+            flex: 0 0 calc((100% - 50px) / 3);
 
+            min-width: 0;
 
-    /* CARD */
+            scroll-snap-align: start;
+        }
 
-    .package-slide {
-      flex: 0 0 calc((100% - 50px) / 3);
 
-      scroll-snap-align: start;
+        /* =========================
+           PACKAGE CARD
+        ========================= */
 
-      min-width: 0;
-    }
+        .package-card {
+            position: relative;
 
-    .package-card {
-      height: 100%;
+            min-height: 570px;
+            height: 100%;
 
-      min-height: 570px;
+            padding: 35px;
 
-      padding: 35px;
+            background: #111111;
 
-      background: #111;
+            border: 1px solid rgba(212, 175, 55, 0.25);
 
-      border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 22px;
 
-      border-radius: 22px;
+            display: flex;
+            flex-direction: column;
 
-      display: flex;
-      flex-direction: column;
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
 
-      transition: transform 0.3s ease,
-                  border-color 0.3s ease;
-    }
+        .package-card:hover {
+            transform: translateY(-6px);
 
-    .package-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(212, 175, 55, 0.65);
-    }
+            border-color: rgba(212, 175, 55, 0.65);
 
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.35);
+        }
 
-    /* FEATURED */
 
-    .package-featured {
-      border-color: #d4af37;
+        /* =========================
+           FEATURED PACKAGE
+        ========================= */
 
-      box-shadow:
-        0 0 40px rgba(212, 175, 55, 0.08);
-    }
+        .package-featured {
+            border-color: #d4af37;
 
-    .package-badge {
-      display: inline-block;
+            box-shadow:
+                0 0 45px rgba(212, 175, 55, 0.08);
+        }
 
-      width: fit-content;
 
-      padding: 7px 14px;
+        /* =========================
+           BADGE
+        ========================= */
 
-      margin-bottom: 20px;
+        .package-badge {
+            display: inline-block;
 
-      background: #d4af37;
-      color: #111;
+            width: fit-content;
 
-      border-radius: 50px;
+            padding: 7px 14px;
 
-      font-size: 11px;
-      font-weight: 700;
+            margin-bottom: 20px;
 
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+            background: #d4af37;
+            color: #111111;
 
+            border-radius: 50px;
 
-    /* TEXT */
+            font-size: 10px;
+            font-weight: 700;
 
-    .package-label {
-      display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-      color: #888;
 
-      font-size: 11px;
+        /* =========================
+           PACKAGE LABEL
+        ========================= */
 
-      letter-spacing: 1.5px;
+        .package-label {
+            display: block;
 
-      text-transform: uppercase;
+            color: #777777;
 
-      margin-bottom: 10px;
-    }
+            font-size: 11px;
+            font-weight: 600;
 
-    .package-card h3 {
-      font-size: 32px;
+            text-transform: uppercase;
 
-      margin-bottom: 18px;
-    }
+            letter-spacing: 1.5px;
 
-    .package-price {
-      margin-bottom: 18px;
-    }
+            margin-bottom: 10px;
+        }
 
-    .package-price span {
-      display: block;
 
-      color: #d4af37;
+        /* =========================
+           PACKAGE TITLE
+        ========================= */
 
-      font-size: 34px;
+        .package-card h3 {
+            font-size: 32px;
 
-      font-weight: 700;
-    }
+            line-height: 1.2;
 
-    .package-price small {
-      color: #777;
+            margin-bottom: 18px;
+        }
 
-      font-size: 11px;
-    }
 
-    .package-desc {
-      color: #aaa;
+        /* =========================
+           PRICE
+        ========================= */
 
-      font-size: 14px;
+        .package-price {
+            margin-bottom: 18px;
+        }
 
-      line-height: 1.7;
+        .package-price span {
+            display: block;
 
-      min-height: 70px;
-    }
+            color: #d4af37;
 
+            font-size: 34px;
+            font-weight: 700;
 
-    /* DIVIDER */
+            line-height: 1.2;
+        }
 
-    .package-divider {
-      height: 1px;
+        .package-price small {
+            display: block;
 
-      background: rgba(255,255,255,0.08);
+            margin-top: 5px;
 
-      margin: 25px 0;
-    }
+            color: #777777;
 
+            font-size: 11px;
 
-    /* LIST */
+            text-transform: uppercase;
 
-    .package-card h4 {
-      font-size: 14px;
+            letter-spacing: 0.5px;
+        }
 
-      margin-bottom: 18px;
 
-      color: #ddd;
-    }
+        /* =========================
+           DESCRIPTION
+        ========================= */
 
-    .package-card ul {
-      list-style: none;
+        .package-desc {
+            min-height: 70px;
 
-      margin-bottom: 30px;
+            color: #aaaaaa;
 
-      flex: 1;
-    }
+            font-size: 14px;
 
-    .package-card li {
-      display: flex;
-      align-items: flex-start;
+            line-height: 1.7;
+        }
 
-      gap: 10px;
 
-      color: #bbb;
+        /* =========================
+           DIVIDER
+        ========================= */
 
-      font-size: 14px;
+        .package-divider {
+            width: 100%;
+            height: 1px;
 
-      line-height: 1.5;
+            margin: 25px 0;
 
-      margin-bottom: 13px;
-    }
+            background: rgba(255, 255, 255, 0.08);
+        }
 
-    .package-card li i {
-      color: #d4af37;
 
-      font-size: 12px;
+        /* =========================
+           INCLUDED TITLE
+        ========================= */
 
-      margin-top: 4px;
-    }
+        .package-card h4 {
+            color: #dddddd;
 
+            font-size: 14px;
 
-    /* BUTTON */
+            margin-bottom: 18px;
+        }
 
-    .pkg-btn {
-      width: 100%;
 
-      padding: 14px 20px;
+        /* =========================
+           FEATURES
+        ========================= */
 
-      border-radius: 50px;
+        .package-card ul {
+            list-style: none;
 
-      font-size: 14px;
+            flex: 1;
 
-      font-weight: 600;
+            margin-bottom: 30px;
+        }
 
-      cursor: pointer;
+        .package-card li {
+            display: flex;
 
-      transition: 0.3s ease;
-    }
+            align-items: flex-start;
 
-    .btn-outline-gold {
-      background: transparent;
+            gap: 10px;
 
-      border: 1px solid #d4af37;
+            color: #bbbbbb;
 
-      color: #d4af37;
-    }
+            font-size: 14px;
 
-    .btn-outline-gold:hover {
-      background: #d4af37;
+            line-height: 1.5;
 
-      color: #111;
-    }
+            margin-bottom: 13px;
+        }
 
-    .btn-gold {
-      background: #d4af37;
+        .package-card li i {
+            color: #d4af37;
 
-      border: 1px solid #d4af37;
+            font-size: 11px;
 
-      color: #111;
-    }
+            margin-top: 5px;
 
-    .btn-gold:hover {
-      background: #e5c04a;
-    }
+            flex-shrink: 0;
+        }
 
 
-    /* CUSTOM QUOTE */
+        /* =========================
+           BUTTON
+        ========================= */
 
-    .custom-quote {
-      text-align: center;
+        .pkg-btn {
+            width: 100%;
 
-      margin-top: 40px;
+            min-height: 48px;
 
-      color: #999;
+            padding: 13px 20px;
 
-      font-size: 14px;
-    }
+            border-radius: 50px;
 
-    .custom-quote a {
-      color: #d4af37;
+            font-size: 14px;
 
-      text-decoration: none;
+            font-weight: 600;
 
-      margin-left: 5px;
-    }
+            cursor: pointer;
 
+            transition: all 0.3s ease;
+        }
 
-    /* TABLET */
+        .btn-outline-gold {
+            background: transparent;
 
-    @media (max-width: 1050px) {
+            border: 1px solid #d4af37;
 
-      .package-slide {
-        flex: 0 0 calc((100% - 25px) / 2);
-      }
+            color: #d4af37;
+        }
 
-    }
+        .btn-outline-gold:hover {
+            background: #d4af37;
 
+            color: #111111;
+        }
 
-    /* MOBILE */
+        .btn-gold {
+            background: #d4af37;
 
-    @media (max-width: 650px) {
+            border: 1px solid #d4af37;
 
-      .packages-page {
-        padding: 60px 20px;
-      }
+            color: #111111;
+        }
 
-      .section-head {
-        margin-bottom: 35px;
-      }
+        .btn-gold:hover {
+            background: #e4c04a;
 
-      .section-title {
-        font-size: 38px;
-      }
+            border-color: #e4c04a;
+        }
 
-      .section-subtitle {
-        font-size: 14px;
-      }
 
-      .packages-slider {
-        gap: 15px;
+        /* =========================
+           CUSTOM QUOTE
+        ========================= */
 
-        padding-left: 0;
-        padding-right: 0;
+        .custom-quote {
+            text-align: center;
 
-        scroll-snap-type: x mandatory;
-      }
+            margin-top: 35px;
 
-      .package-slide {
-        flex: 0 0 100%;
-      }
+            color: #888888;
 
-      .package-card {
-        min-height: 540px;
+            font-size: 14px;
+        }
 
-        padding: 28px 24px;
+        .custom-quote a {
+            color: #d4af37;
 
-        border-radius: 18px;
-      }
+            text-decoration: none;
 
-      .package-card h3 {
-        font-size: 28px;
-      }
+            margin-left: 5px;
 
-      .package-price span {
-        font-size: 30px;
-      }
+            transition: opacity 0.3s ease;
+        }
 
-    }
-  </style>
+        .custom-quote a:hover {
+            opacity: 0.75;
+        }
+
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 1050px) {
+
+            .package-slide {
+                flex: 0 0 calc((100% - 25px) / 2);
+            }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .packages-page {
+                padding: 60px 20px;
+            }
+
+            .section-head {
+                margin-bottom: 35px;
+            }
+
+            .section-title {
+                font-size: 38px;
+            }
+
+            .section-subtitle {
+                font-size: 14px;
+            }
+
+            .packages-slider {
+                gap: 15px;
+
+                padding-left: 0;
+                padding-right: 0;
+
+                scroll-snap-type: x mandatory;
+            }
+
+            .package-slide {
+                flex: 0 0 100%;
+            }
+
+            .package-card {
+                min-height: 540px;
+
+                padding: 28px 24px;
+
+                border-radius: 18px;
+            }
+
+            .package-card h3 {
+                font-size: 28px;
+            }
+
+            .package-price span {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
 </head>
 
 
 <body>
 
-  <main class="packages-page">
 
-    <!-- HEADER -->
-
-    <div class="section-head">
-
-      <p class="eyebrow">
-        <span class="eyebrow-dot"></span>
-        Investment
-      </p>
-
-      <h1 class="section-title">
-        Branding Packages
-      </h1>
-
-      <p class="section-subtitle">
-        Choose the right branding solution for your business
-        and build a visual identity that people remember.
-      </p>
-
-    </div>
+    <main class="packages-page">
 
 
-    <!-- MANUAL SLIDER -->
+        <!-- =========================
+             HEADER
+        ========================= -->
 
-    <div class="packages-slider" id="packagesSlider">
+        <div class="section-head">
 
+            <p class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                Investment
+            </p>
 
-      <!-- STARTER -->
+            <h1 class="section-title">
+                Branding Packages
+            </h1>
 
-      <div class="package-slide">
-
-        <div class="package-card">
-
-          <span class="package-label">
-            For New Brands
-          </span>
-
-          <h3>Starter</h3>
-
-          <p class="package-price">
-            <span>₹4,999</span>
-            <small>Starting from</small>
-          </p>
-
-          <p class="package-desc">
-            For new businesses that need a professional
-            visual identity.
-          </p>
-
-          <div class="package-divider"></div>
-
-          <h4>What's Included</h4>
-
-          <ul>
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Logo Design
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Logo Variations
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Color Palette
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Typography
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Basic Brand Assets
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Final Export Files
-            </li>
-          </ul>
-
-          <button class="pkg-btn btn-outline-gold">
-            Choose Starter
-          </button>
+            <p class="section-subtitle">
+                Choose the right branding solution for your business
+                and build a visual identity that people remember.
+            </p>
 
         </div>
 
-      </div>
 
 
-      <!-- PROFESSIONAL -->
+        <!-- =========================
+             PACKAGES SLIDER
+             
+             NO ARROWS
+             NO DOTS
+             NO PAGINATION
+             NO AUTO SLIDE
+        ========================= -->
 
-      <div class="package-slide">
+        <div
+            class="packages-slider"
+            id="packagesSlider"
+        >
 
-        <div class="package-card package-featured">
 
-          <span class="package-badge">
-            Most Popular
-          </span>
+            <!-- =========================
+                 STARTER
+            ========================= -->
 
-          <span class="package-label">
-            For Growing Businesses
-          </span>
+            <div class="package-slide">
 
-          <h3>Professional</h3>
+                <div class="package-card">
 
-          <p class="package-price">
-            <span>₹9,999</span>
-            <small>Starting from</small>
-          </p>
+                    <span class="package-label">
+                        For New Brands
+                    </span>
 
-          <p class="package-desc">
-            Build a complete and consistent visual identity
-            across your digital and physical presence.
-          </p>
+                    <h3>
+                        Starter
+                    </h3>
 
-          <div class="package-divider"></div>
+                    <p class="package-price">
+                        <span>₹4,999</span>
+                        <small>Starting from</small>
+                    </p>
 
-          <h4>Everything in Starter, plus</h4>
+                    <p class="package-desc">
+                        For new businesses that need a professional
+                        visual identity.
+                    </p>
 
-          <ul>
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Brand Guidelines
-            </li>
+                    <div class="package-divider"></div>
 
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Business Card
-            </li>
+                    <h4>
+                        What's Included
+                    </h4>
 
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Social Media Templates
-            </li>
+                    <ul>
 
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Profile Branding
-            </li>
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Logo Design
+                        </li>
 
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Packaging / Marketing Asset
-            </li>
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Logo Variations
+                        </li>
 
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Professional Brand Mockups
-            </li>
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Color Palette
+                        </li>
 
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Brand Presentation
-            </li>
-          </ul>
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Typography
+                        </li>
 
-          <button class="pkg-btn btn-gold">
-            Choose Professional
-          </button>
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Basic Brand Assets
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Final Export Files
+                        </li>
+
+                    </ul>
+
+                    <button
+                        type="button"
+                        class="pkg-btn btn-outline-gold"
+                    >
+                        Choose Starter
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 PROFESSIONAL
+            ========================= -->
+
+            <div class="package-slide">
+
+                <div class="package-card package-featured">
+
+                    <span class="package-badge">
+                        Most Popular
+                    </span>
+
+                    <span class="package-label">
+                        For Growing Businesses
+                    </span>
+
+                    <h3>
+                        Professional
+                    </h3>
+
+                    <p class="package-price">
+                        <span>₹9,999</span>
+                        <small>Starting from</small>
+                    </p>
+
+                    <p class="package-desc">
+                        Build a complete and consistent visual identity
+                        across your digital and physical presence.
+                    </p>
+
+                    <div class="package-divider"></div>
+
+                    <h4>
+                        Everything in Starter, plus
+                    </h4>
+
+                    <ul>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Brand Guidelines
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Business Card
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Social Media Templates
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Profile Branding
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Packaging / Marketing Asset
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Professional Brand Mockups
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Brand Presentation
+                        </li>
+
+                    </ul>
+
+                    <button
+                        type="button"
+                        class="pkg-btn btn-gold"
+                    >
+                        Choose Professional
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 PREMIUM
+            ========================= -->
+
+            <div class="package-slide">
+
+                <div class="package-card">
+
+                    <span class="package-label">
+                        Complete Brand Solution
+                    </span>
+
+                    <h3>
+                        Premium
+                    </h3>
+
+                    <p class="package-price">
+                        <span>₹17,999</span>
+                        <small>Starting from</small>
+                    </p>
+
+                    <p class="package-desc">
+                        Complete brand development for businesses
+                        looking for a strong premium market presence.
+                    </p>
+
+                    <div class="package-divider"></div>
+
+                    <h4>
+                        Complete Brand Development
+                    </h4>
+
+                    <ul>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Complete Brand Identity
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Advanced Logo System
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Brand Guidelines
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Social Media Branding
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Packaging Design
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Marketing Materials
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Multiple Brand Mockups
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Brand Presentation
+                        </li>
+
+                    </ul>
+
+                    <button
+                        type="button"
+                        class="pkg-btn btn-outline-gold"
+                    >
+                        Build My Brand
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
 
         </div>
 
-      </div>
 
 
-      <!-- PREMIUM -->
+        <!-- =========================
+             CUSTOM QUOTE
+        ========================= -->
 
-      <div class="package-slide">
+        <p class="custom-quote">
 
-        <div class="package-card">
+            Need something custom?
 
-          <span class="package-label">
-            Complete Brand Solution
-          </span>
+            <a href="#">
+                Request a Custom Quote →
+            </a>
 
-          <h3>Premium</h3>
-
-          <p class="package-price">
-            <span>₹17,999</span>
-            <small>Starting from</small>
-          </p>
-
-          <p class="package-desc">
-            Complete brand development for businesses
-            looking for a strong premium market presence.
-          </p>
-
-          <div class="package-divider"></div>
-
-          <h4>Complete Brand Development</h4>
-
-          <ul>
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Complete Brand Identity
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Advanced Logo System
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Brand Guidelines
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Social Media Branding
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Packaging Design
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Marketing Materials
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Multiple Brand Mockups
-            </li>
-
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Brand Presentation
-            </li>
-          </ul>
-
-          <button class="pkg-btn btn-outline-gold">
-            Build My Brand
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-
-        </div>
-
-      </div>
+        </p>
 
 
-    </div>
+    </main>
 
 
-    <!-- CUSTOM QUOTE -->
 
-    <p class="custom-quote">
-      Need something custom?
-      <a href="#">
-        Request a Custom Quote →
-      </a>
-    </p>
+    <!-- =========================
+         MANUAL DRAG / SWIPE ONLY
+         
+         NO AUTO SLIDE
+         NO ARROWS
+         NO PAGINATION
+    ========================= -->
 
-  </main>
+    <script>
 
+        const slider =
+            document.getElementById("packagesSlider");
 
-  <script>
+        let isDown = false;
 
-    const slider = document.getElementById("packagesSlider");
+        let startX = 0;
 
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-
-    /* DESKTOP MOUSE DRAG */
-
-    slider.addEventListener("mousedown", (e) => {
-
-      isDown = true;
-
-      slider.style.scrollBehavior = "auto";
-
-      startX = e.pageX - slider.offsetLeft;
-
-      scrollLeft = slider.scrollLeft;
-
-    });
+        let scrollLeft = 0;
 
 
-    slider.addEventListener("mouseleave", () => {
+        /* =========================
+           MOUSE DOWN
+        ========================= */
 
-      isDown = false;
+        slider.addEventListener("mousedown", function (e) {
 
-      slider.style.scrollBehavior = "smooth";
+            isDown = true;
 
-    });
+            slider.style.scrollBehavior = "auto";
 
+            startX =
+                e.pageX -
+                slider.offsetLeft;
 
-    slider.addEventListener("mouseup", () => {
+            scrollLeft =
+                slider.scrollLeft;
 
-      isDown = false;
-
-      slider.style.scrollBehavior = "smooth";
-
-    });
-
-
-    slider.addEventListener("mousemove", (e) => {
-
-      if (!isDown) return;
-
-      e.preventDefault();
-
-      const x = e.pageX - slider.offsetLeft;
-
-      const walk = (x - startX) * 1.5;
-
-      slider.scrollLeft = scrollLeft - walk;
-
-    });
+        });
 
 
-  </script>
+        /* =========================
+           MOUSE UP
+        ========================= */
 
-</body>
-</html>
+        slider.addEventListener("mouseup", function () {
 
-');
+            isDown = false;
+
+            slider.style.scrollBehavior = "smooth";
+
+        });
+
+
+        /* =========================
+           MOUSE LEAVE
+        ========================= */
+
+        slider.addEventListener("mouseleave", function () {
+
+            isDown = false;
+
+            slider.style.scrollBehavior = "smooth";
+
+        });
+
+
+        /* =========================
+           MOUSE MOVE
+        ========================= */
+
+        slider.addEventListener("mousemove", function (e) {
+
+            if (!isDown) return;
+
+            e.preventDefault();
+
+            const x =
+          
+'):
